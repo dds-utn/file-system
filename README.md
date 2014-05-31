@@ -5,8 +5,17 @@ Un equipo de desarrollo acaba de implementar un novedoso y revolucionario sistem
 que nos permiten abrir y cerrar archivos, y leerlo o escribirlo secuencialmente.  Sin embargo, no se esmeraron mucho en que la interfaz entrante al sistema sea fácil de usar:
 
 ```java
-```
+public interface LowLevelFileSystem {
+  int openFile(String path);
 
+  void closeFile(int fd);
+  int syncReadFile(int fd, byte[] bufferBytes, int bufferStart, int bufferEnd);
+  void syncWriteFile(int fd, byte[] bufferBytes, int bufferStart, int bufferEnd);
+  void asyncReadFile(int fd, byte[] buffer, int bufferStart, int bufferEnd,
+      Consumer<Integer> callback);
+}
+```
+(ver archivo fs/LowLevelFileSystem.java)
 
 Entonces no solicitaron que construyamos una mejor interfaz entrante a este sistema que pueda usar un programador: una API (application programming interface). Esta estará estará conformada por uno o más componentes (interfaces, objetos, clases, etc) que tendremos que diseñar. 
 

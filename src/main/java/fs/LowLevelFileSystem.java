@@ -26,26 +26,47 @@ public interface LowLevelFileSystem {
    * devuelve la cantidad efectiva de bytes leidos y modifica al buffer de forma
    * acorde
    * 
+   * Por ejemplo, si bufferStart = 0 y bufferEnd = 0 significa que hay que leer
+   * 1 byte, y colocarlo en la posicion 0 del buffer
+   * 
    * Advertencia: este método asume que el descriptor corresponde a un archivo
-   * abierto, que bufferEnd >= bufferStart, y que bufferStart >= 0 y
-   * <code>bufferEnd <= bufferBytes.length - 1</code>
+   * abierto, que bufferEnd >= bufferStart, y que <code>bufferStart >= 0</code>
+   * y <code>bufferEnd <= bufferBytes.length - 1</code>
    * 
    * @param fd
    *          el descriptor (id) del archivo
    * @param bufferBytes
    * @param bufferStart
+   *          la posicion inicial a partir de la cual escribir los bytes leidos
    * @param bufferEnd
-   * @return la cantidad de bytes leidos
+   *          la posicion final hasta donde escribir los butes leidos
+   *          (inclusive).
+   * @return la cantidad de bytes leidos, que son siempre menores o iguales a
+   *         bufferStart - bufferEnd + 1
    */
   int syncReadFile(int fd, byte[] bufferBytes, int bufferStart, int bufferEnd);
 
-  // Escribe bufferStart - bufferEnd + 1 bytes, a partir de bufferStart
+  /**
+   * Escribe bufferStart - bufferEnd + 1 bytes, a partir de bufferStart
+   * 
+   * @param fd
+   * @param bufferBytes
+   * @param bufferStart
+   * @param bufferEnd
+   */
   void syncWriteFile(int fd, byte[] bufferBytes, int bufferStart, int bufferEnd);
 
-  // Intenta leer tantos bytes como pueda, esto es, bufferStart - bufferEnd +
-  // 1 bytes
-  // devuelve la cantidad efectiva de bytes leidos y modifica al buffer de
-  // forma acorde
+  /**
+   * Similar a {@link #syncReadFile(int, byte[], int, int)}, pero asincrónico.
+   * 
+   * En lugar de devolver la cantidad de bytes leidos, se lo pasa a un callback
+   * 
+   * @param fd
+   * @param buffer
+   * @param bufferStart
+   * @param bufferEnd
+   * @param callback
+   */
   void asyncReadFile(int fd, byte[] buffer, int bufferStart, int bufferEnd,
       Consumer<Integer> callback);
 }
