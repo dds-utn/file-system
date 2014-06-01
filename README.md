@@ -2,7 +2,7 @@ Sistema de archivos
 ===================
 
 Un equipo de desarrollo acaba de implementar un novedoso y revolucionario sistema de archivos: un conjunto de objetos
-que nos permiten abrir y cerrar archivos, y leerlo o escribirlo secuencialmente.  Sin embargo, no se esmeraron mucho en que la interfaz entrante al sistema sea fácil de usar:
+que nos permiten abrir y cerrar archivos (binarios), y leerlo o escribirlo secuencialmente.  Sin embargo, no se esmeraron mucho en que la interfaz entrante al sistema sea fácil de usar:
 
 ```java
 public interface LowLevelFileSystem {

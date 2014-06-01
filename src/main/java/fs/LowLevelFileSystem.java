@@ -2,6 +2,13 @@ package fs;
 
 import java.util.function.Consumer;
 
+/**
+ * Interfaz de bajo nivel de nuestro sistema de archivos, que nos permite abrir
+ * y cerrar archivos binarios, y leer y escribir en ellos en bloques.
+ * 
+ * La escritura es siempre sincrónica. La lectura puede ser sincrónica o
+ * asincrónica, según que método se utilize
+ */
 public interface LowLevelFileSystem {
   /**
    * Abre un archivo, dejándolo listo para ser leido o escrito.
@@ -62,11 +69,17 @@ public interface LowLevelFileSystem {
    * En lugar de devolver la cantidad de bytes leidos, se lo pasa a un callback
    * 
    * @param fd
-   * @param buffer
+   * @param bufferBytes
    * @param bufferStart
    * @param bufferEnd
    * @param callback
+   *          un Callback (tipado arbitrariamente como {@link Consumer}) que se
+   *          ejecutará cuando la operación de lectura asincrónica se haya
+   *          concretado. Le llega por parámetro la cantidad de bytes leidos
+   *          efectivamente. Para cuando el {@link LowLevelFileSystem} ejecute
+   *          este callabck, este {@link LowLevelFileSystem} ya habrá
+   *          actualizado el buffer
    */
-  void asyncReadFile(int fd, byte[] buffer, int bufferStart, int bufferEnd,
+  void asyncReadFile(int fd, byte[] bufferBytes, int bufferStart, int bufferEnd,
       Consumer<Integer> callback);
 }
