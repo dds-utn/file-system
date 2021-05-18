@@ -78,6 +78,7 @@ Finalmente, como nuestro cliente es bastante quisquilloso quiere ver formas alte
   * hay algunos tests implementados que les pueden servir de puntapié. Obviamente no andan, tienen que implementar el código faltante 
   * hay algunos tests que sólo están enunciados, pero no están implementados están implementados. Nuevamente, tienen que implementarlos 
   * [acá](https://docs.google.com/document/d/1l22DXR13J3XlcEkdwWsba5zg8gl_XwFA7cWf_LIOHHk/edit#) hay una solución propuesta que les puede guiar en la implementación. Tengan en cuenta que no contempla todos los requerimientos de forma detallada (en particular, las escrituras y validaciones no están desarroladas), pero creemos que servirá como orientación en gran medida.   
+  * [acá](https://docs.google.com/document/d/1467Gc-adARJZZhVAdgazdCeHWRzCUJg6CfMD3nkhmG4/edit#) hay un breve apunte con un resúmen de las capacidades de Mockito
 
 ## Bonus
 
