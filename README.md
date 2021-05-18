@@ -22,8 +22,10 @@ public interface LowLevelFileSystem {
   void closeFile(int fd);
   int syncReadFile(int fd, byte[] bufferBytes, int bufferStart, int bufferEnd);
   void syncWriteFile(int fd, byte[] bufferBytes, int bufferStart, int bufferEnd);
-  void asyncReadFile(int fd, byte[] buffer, int bufferStart, int bufferEnd,
+  void asyncReadFile(int fd, byte[] bufferBytes, int bufferStart, int bufferEnd,
       Consumer<Integer> callback);
+  void asyncWriteFile(int fd, byte[] bufferBytes, int bufferStart, int bufferEnd,
+                      Runnable callback);
 }
 ```
 (ver archivo `fs/LowLevelFileSystem.java`)
@@ -46,7 +48,11 @@ Sin embargo, los requerimientos son un poco abiertos. Nos han señalado las sigu
   * escribir sincrónicamente un bloque de n bytes de archivo
   * leer sincrónicamente un bloque de n bytes de un archivo
   * leer asincrónicamente un bloque de n bytes de un archivo
-* Esta API que diseñaremos será básicamente un adaptador, es decir, no agregará funcionalidad al sistema de archivos original, sino que tan solo expondrá una mejor interfaz entrante. Es decir, ahora aquella interfaz entrante original será para nosotres la interfaz saliente del pequeño sistema adaptador que vamos a diseñar.
+  * escribir asincrónicamente un bloque de n bytes de un archivo
+* ¡OJO! Es importante que el API tenga un buen manejo de errores    
+* Esta API que diseñaremos será básicamente un adaptador, es decir, no agregará funcionalidad al sistema de archivos original, 
+  sino que tan solo expondrá una mejor interfaz entrante. Es decir, ahora aquella interfaz entrante original será para nosotres 
+  la interfaz saliente del pequeño sistema adaptador que vamos a diseñar.
 
 ```
                  +---+    +-----------------+
@@ -68,14 +74,18 @@ Finalmente, como nuestro cliente es bastante quisquilloso quiere ver formas alte
 ## Notas
 
   * no nos interesa lidiar con problemas de concurrencia. Asumimos que ya los resuelve el sistema de archivos.
-  * si no saben por donde empezar, hay un test y unas clases que les pueden servir de puntapié para ambas soluciones
+  * para poder testear vamos a necesitar usar mocks. [Mockito](https://javadoc.io/doc/org.mockito/mockito-core/latest/org/mockito/Mockito.html) ya se encuentra agregada como dependencia  
+  * hay algunos tests implementados que les pueden servir de puntapié. Obviamente no andan, tienen que implementar el código faltante 
+  * hay algunos tests que sólo están enunciados, pero no están implementados están implementados. Nuevamente, tienen que implementarlos 
+  * [acá](https://docs.google.com/document/d/1l22DXR13J3XlcEkdwWsba5zg8gl_XwFA7cWf_LIOHHk/edit#) hay una solución propuesta que les puede guiar en la implementación. Tengan en cuenta que no contempla todos los requerimientos de forma detallada (en particular, las escrituras y validaciones no están desarroladas), pero creemos que servirá como orientación en gran medida.   
 
 ## Bonus
 
-
-  * Nos gustaría que la interfaz nos expusiera al menos una forma de aplicarle a cada bloque una transformación, o de filtrar facilmente bloque
-  * Nos gustaría que funcionara para archivos muy grandes, potencialmente infinitos.
-  * Nos gustaría que este API eventualmente pudiera tener diferentes implementaciones que hablen contra otros sistemas de archivos con otras interfaces de bajo nivel.
+Opcionalmente, esta interfaz debería permitir:
+  
+ * Saber si una ruta (path) denota un archivo regular
+ * Saber si una ruta (path) denota un directorio
+ * Saber si una ruta (path) existe (sin importar qué sea)
 
 
 # Ejecutar tests
