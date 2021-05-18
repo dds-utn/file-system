@@ -97,7 +97,7 @@ class HighLevelFileSystemTest {
   }
 
   @Test
-  void siLaLecturaAsincronicaFallaUnaExcepciónEsLanzada() {
+  void sePuedeEscribirAsincronicamenteUnArchivo() {
     Assertions.fail("Completar");
   }
 
