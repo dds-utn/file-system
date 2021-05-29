@@ -69,7 +69,6 @@ Entonces, tenemos como tarea "embellecer" al sistema de archivos. Y como segunda
 
 Los ejemplos tambien tenemos que plantearlos nosotres, en forma de tests.
 
-Finalmente, como nuestro cliente es bastante quisquilloso quiere ver formas alternativas de solucionar las lecturas sincrónicas y asincrónicas, para compararlas y ver cuales le gustan más.
 
 ## Notas
 
