@@ -111,11 +111,22 @@ Este comando hará lo siguiente:
 
 # Entrega del proyecto
 
+
+> [!WARNING]
+>
+> El archivo `pom.xml` contiene configuraciones escenciales del proyecto: no lo modifiques. Las entregas que contengan archivos `pom.xml` no serán tenidas en cuenta. 
+
 Para entregar el proyecto, crear un tag llamado `entrega-final`. Es importante que antes de realizarlo se corra la validación
 explicada en el punto anterior. Se recomienda hacerlo de la siguiente forma:
 
 ```
 mvn clean verify && git tag entrega-final && git push origin HEAD --tags
+```
+
+En caso de desear reentregar (siempre que te encuentres dentro del período de envío del trabajo práctico), deberás volver a crear **el mismo** tag: 
+
+```
+mvn clean verify && git tag entrega-final && git push origin HEAD --tags -f
 ```
 
 # Configuración del IDE (IntelliJ)
