@@ -114,7 +114,7 @@ Este comando hará lo siguiente:
 
 > [!WARNING]
 >
-> El archivo `pom.xml` contiene configuraciones escenciales del proyecto: no lo modifiques. Las entregas que contengan archivos `pom.xml` no serán tenidas en cuenta. 
+> El archivo `pom.xml` contiene configuraciones escenciales del proyecto: no lo modifiques. Las entregas que contengan archivos `pom.xml` modificados no serán tenidas en cuenta. 
 
 Para entregar el proyecto, crear un tag llamado `entrega-final`. Es importante que antes de realizarlo se corra la validación
 explicada en el punto anterior. Se recomienda hacerlo de la siguiente forma:
